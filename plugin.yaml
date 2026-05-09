@@ -1,0 +1,4 @@
+name: hermes-browser-workspace
+version: 0.1.0
+entrypoint: hermes_browser_workspace.plugin:get_plugin
+description: Phase 1 local MVP plugin for workspace bootstrap, domain skills, and bounded CDP utilities.
