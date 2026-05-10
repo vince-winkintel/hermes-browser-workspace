@@ -76,6 +76,7 @@ class BrowserWorkspaceConfig:
     storage_mode: str = "local_only"
     domain_skill_save_mode: str = "explicit"
     retention_days: int = 14
+    stale_skill_warning_days: int = 30
     redact_patterns: list[str] = field(
         default_factory=lambda: ["token", "cookie", "authorization", "password", "secret", "localStorage"]
     )
@@ -110,6 +111,7 @@ class BrowserWorkspaceConfig:
             "storage_mode": self.storage_mode,
             "domain_skill_save_mode": self.domain_skill_save_mode,
             "retention_days": self.retention_days,
+            "stale_skill_warning_days": self.stale_skill_warning_days,
             "redact_patterns": self.redact_patterns,
             "cdp_allowed_domains": self.cdp_allowed_domains,
             "cdp_blocked_domains": self.cdp_blocked_domains,
@@ -136,6 +138,7 @@ def default_config_text(root: Path | None = None) -> str:
         f'storage_mode: "{template["storage_mode"]}"',
         f'domain_skill_save_mode: "{template["domain_skill_save_mode"]}"',
         f'retention_days: {template["retention_days"]}',
+        f'stale_skill_warning_days: {template["stale_skill_warning_days"]}',
         f'redact_patterns: {json.dumps(template["redact_patterns"])}',
         f'cdp_allowed_domains: {json.dumps(template["cdp_allowed_domains"])}',
         f'cdp_blocked_domains: {json.dumps(template["cdp_blocked_domains"])}',

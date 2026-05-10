@@ -11,3 +11,4 @@ def test_default_config_round_trip(tmp_path: Path) -> None:
     assert config.workspace_root == tmp_path.resolve()
     assert config.browser_workspace_cdp_enabled is True
     assert config.real_chrome_profile_enabled is False
+    assert config.stale_skill_warning_days == 30

@@ -9,7 +9,20 @@ from .cdp import check_cdp_policy, log_cdp_call
 from .artifacts import cleanup_artifacts, list_artifacts
 from .config import BrowserWorkspaceConfig
 from .doctor import run_doctor
-from .domain_skills import draft_domain_skill, save_domain_skill, search_domain_skills, validate_domain_skill_draft
+from .domain_skills import (
+    add_domain_skill_example,
+    draft_domain_skill,
+    export_domain_skill_package,
+    import_domain_skill_package,
+    list_domain_skill_examples,
+    list_domain_skill_recipes,
+    list_stale_domain_skills,
+    mark_domain_skill_verified,
+    save_domain_skill,
+    save_domain_skill_recipes,
+    search_domain_skills,
+    validate_domain_skill_draft,
+)
 from .helpers import (
     list_helper_proposals,
     propose_helper_update,
@@ -67,6 +80,8 @@ class ToolRegistry:
         metadata: dict[str, Any],
         selectors: dict[str, Any] | None = None,
         helpers_code: str | None = None,
+        examples: list[dict[str, Any]] | None = None,
+        extraction_recipes: list[dict[str, Any]] | None = None,
     ) -> dict[str, Any]:
         return save_domain_skill(
             self.config.workspace_root,
@@ -75,6 +90,8 @@ class ToolRegistry:
             metadata=metadata,
             selectors=selectors,
             helpers_code=helpers_code,
+            examples=examples,
+            extraction_recipes=extraction_recipes,
         )
 
     def read_helpers(self) -> dict[str, Any]:
@@ -124,6 +141,7 @@ class ToolRegistry:
         task_id: str | None = None,
         session_id: str | None = None,
         helpers_code: str | None = None,
+        extraction_recipes: list[dict[str, Any]] | None = None,
     ) -> dict[str, Any]:
         return draft_domain_skill(
             self.config.workspace_root,
@@ -135,10 +153,56 @@ class ToolRegistry:
             task_id=task_id,
             session_id=session_id,
             helpers_code=helpers_code,
+            extraction_recipes=extraction_recipes,
         )
 
     def validate_domain_skill(self, draft_id: str) -> dict[str, Any]:
         return validate_domain_skill_draft(self.config.workspace_root, draft_id)
+
+    def mark_domain_skill_verified(
+        self,
+        domain: str,
+        verified_by: str,
+        verification_notes: str | None = None,
+        verification_status: str = "verified",
+        confidence: str | None = None,
+        reliability: str | None = None,
+    ) -> dict[str, Any]:
+        return mark_domain_skill_verified(
+            self.config.workspace_root,
+            domain,
+            verified_by=verified_by,
+            verification_notes=verification_notes,
+            verification_status=verification_status,
+            confidence=confidence,
+            reliability=reliability,
+        )
+
+    def list_stale_domain_skills(self, threshold_days: int | None = None) -> dict[str, Any]:
+        return list_stale_domain_skills(self.config.workspace_root, self.config, threshold_days=threshold_days)
+
+    def add_domain_skill_example(self, domain: str, example: dict[str, Any]) -> dict[str, Any]:
+        return add_domain_skill_example(self.config.workspace_root, domain, example)
+
+    def list_domain_skill_examples(self, domain: str) -> dict[str, Any]:
+        return list_domain_skill_examples(self.config.workspace_root, domain)
+
+    def save_domain_skill_recipes(self, domain: str, recipes: list[dict[str, Any]]) -> dict[str, Any]:
+        return save_domain_skill_recipes(self.config.workspace_root, domain, recipes)
+
+    def list_domain_skill_recipes(self, domain: str) -> dict[str, Any]:
+        return list_domain_skill_recipes(self.config.workspace_root, domain)
+
+    def export_domain_skill_package(
+        self,
+        domain: str,
+        package_name: str | None = None,
+        as_zip: bool = True,
+    ) -> dict[str, Any]:
+        return export_domain_skill_package(self.config.workspace_root, domain, package_name=package_name, as_zip=as_zip)
+
+    def import_domain_skill_package(self, package_path: str, import_mode: str = "draft") -> dict[str, Any]:
+        return import_domain_skill_package(self.config.workspace_root, package_path, import_mode=import_mode)
 
     def list_artifacts(
         self,

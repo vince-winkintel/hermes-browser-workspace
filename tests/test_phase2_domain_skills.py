@@ -17,6 +17,7 @@ def test_draft_domain_skill_persists_redacted_inputs(tmp_path: Path) -> None:
         observations=["Use stable repo header selectors."],
         selectors={"repo_name": {"selector": "[itemprop='name']"}, "authToken": "secret"},
         examples=[{"prompt": "Open repo", "authorization": "Bearer abc"}],
+        extraction_recipes=[{"name": "repo_name", "steps": [{"action": "extract", "field": "repo_name", "selector": "[itemprop='name']"}]}],
         session_id="session-2",
         task_id="task-2",
     )
@@ -24,6 +25,7 @@ def test_draft_domain_skill_persists_redacted_inputs(tmp_path: Path) -> None:
     metadata = json.loads((draft_path / "metadata.json").read_text(encoding="utf-8"))
     assert metadata["kind"] == "domain_skill_draft"
     assert metadata["validation"]["selectors"]["ok"] is False
+    assert metadata["validation"]["recipes"]["ok"] is True
     examples = json.loads((draft_path / "examples.json").read_text(encoding="utf-8"))
     assert examples["examples"][0]["authorization"] == "[REDACTED]"
 

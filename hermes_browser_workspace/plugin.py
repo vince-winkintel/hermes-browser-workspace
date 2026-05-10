@@ -80,6 +80,8 @@ TOOL_SPECS: dict[str, dict[str, Any]] = {
                 "metadata": {"type": "object"},
                 "selectors": {"type": ["object", "null"]},
                 "helpers_code": {"type": ["string", "null"]},
+                "examples": {"type": ["array", "null"], "items": {"type": "object"}},
+                "extraction_recipes": {"type": ["array", "null"], "items": {"type": "object"}},
             },
             ["domain", "skill_markdown", "metadata"],
         ),
@@ -131,6 +133,7 @@ TOOL_SPECS: dict[str, dict[str, Any]] = {
                 "task_id": {"type": ["string", "null"]},
                 "session_id": {"type": ["string", "null"]},
                 "helpers_code": {"type": ["string", "null"]},
+                "extraction_recipes": {"type": ["array", "null"], "items": {"type": "object"}},
             },
             ["domain"],
         ),
@@ -161,6 +164,73 @@ TOOL_SPECS: dict[str, dict[str, Any]] = {
                 "session_id": {"type": ["string", "null"]},
                 "domain": {"type": ["string", "null"]},
             }
+        ),
+    },
+    "browser_workspace_mark_domain_skill_verified": {
+        "description": "Record local verification metadata for a saved domain skill without hitting the live site.",
+        "parameters": _object_schema(
+            {
+                "domain": {"type": "string"},
+                "verified_by": {"type": "string"},
+                "verification_notes": {"type": ["string", "null"]},
+                "verification_status": {"type": ["string", "null"]},
+                "confidence": {"type": ["string", "null"]},
+                "reliability": {"type": ["string", "null"]},
+            },
+            ["domain", "verified_by"],
+        ),
+    },
+    "browser_workspace_list_stale_domain_skills": {
+        "description": "List stale or never-verified local domain skills using local freshness metadata only.",
+        "parameters": _object_schema({"threshold_days": {"type": ["integer", "null"]}}),
+    },
+    "browser_workspace_add_domain_skill_example": {
+        "description": "Add a redacted local example to a saved domain skill.",
+        "parameters": _object_schema(
+            {
+                "domain": {"type": "string"},
+                "example": {"type": "object"},
+            },
+            ["domain", "example"],
+        ),
+    },
+    "browser_workspace_list_domain_skill_examples": {
+        "description": "List saved redacted examples for a domain skill.",
+        "parameters": _object_schema({"domain": {"type": "string"}}, ["domain"]),
+    },
+    "browser_workspace_save_domain_skill_recipes": {
+        "description": "Save validated local extraction recipes for a domain skill.",
+        "parameters": _object_schema(
+            {
+                "domain": {"type": "string"},
+                "recipes": {"type": "array", "items": {"type": "object"}},
+            },
+            ["domain", "recipes"],
+        ),
+    },
+    "browser_workspace_list_domain_skill_recipes": {
+        "description": "List saved redacted extraction recipes for a domain skill.",
+        "parameters": _object_schema({"domain": {"type": "string"}}, ["domain"]),
+    },
+    "browser_workspace_export_domain_skill_package": {
+        "description": "Export a local domain skill as an inspectable local package bundle.",
+        "parameters": _object_schema(
+            {
+                "domain": {"type": "string"},
+                "package_name": {"type": ["string", "null"]},
+                "as_zip": {"type": ["boolean", "null"]},
+            },
+            ["domain"],
+        ),
+    },
+    "browser_workspace_import_domain_skill_package": {
+        "description": "Import a local domain skill package as draft/pending review by default.",
+        "parameters": _object_schema(
+            {
+                "package_path": {"type": "string"},
+                "import_mode": {"type": ["string", "null"]},
+            },
+            ["package_path"],
         ),
     },
 }
@@ -213,6 +283,14 @@ class BrowserWorkspacePlugin:
             "browser_workspace_validate_domain_skill": "validate_domain_skill",
             "browser_workspace_list_artifacts": "list_artifacts",
             "browser_workspace_cleanup_artifacts": "cleanup_artifacts",
+            "browser_workspace_mark_domain_skill_verified": "mark_domain_skill_verified",
+            "browser_workspace_list_stale_domain_skills": "list_stale_domain_skills",
+            "browser_workspace_add_domain_skill_example": "add_domain_skill_example",
+            "browser_workspace_list_domain_skill_examples": "list_domain_skill_examples",
+            "browser_workspace_save_domain_skill_recipes": "save_domain_skill_recipes",
+            "browser_workspace_list_domain_skill_recipes": "list_domain_skill_recipes",
+            "browser_workspace_export_domain_skill_package": "export_domain_skill_package",
+            "browser_workspace_import_domain_skill_package": "import_domain_skill_package",
         }
         for tool_name, method_name in method_map.items():
             spec = TOOL_SPECS[tool_name]

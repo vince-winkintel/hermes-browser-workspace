@@ -45,6 +45,27 @@ SENSITIVE_SELECTOR_KEYS = {
     "password",
     "token",
 }
+SENSITIVE_EXAMPLE_KEYS = {
+    "authorization",
+    "cookie",
+    "cookies",
+    "headers",
+    "html",
+    "localstorage",
+    "password",
+    "request",
+    "response",
+    "storage",
+    "token",
+}
+ALLOWED_RECIPE_STEP_ACTIONS = {
+    "click",
+    "extract",
+    "fill",
+    "goto",
+    "read_text",
+    "wait_for",
+}
 
 
 def validate_selectors(selectors: dict[str, Any] | None) -> dict[str, Any]:
@@ -107,6 +128,67 @@ def validate_helper_code(code: str) -> dict[str, Any]:
             if call_name in DISALLOWED_CALL_ROOTS or any(call_name.startswith(prefix) for prefix in DISALLOWED_CALL_PREFIXES):
                 errors.append(f"Disallowed call in helper proposal: {call_name}")
     return {"ok": not errors, "errors": errors, "warnings": warnings}
+
+
+def validate_examples(examples: list[dict[str, Any]] | None) -> dict[str, Any]:
+    errors: list[str] = []
+    warnings: list[str] = []
+    sanitized = scrub_sensitive(examples or [])
+    if examples is None:
+        return {"ok": True, "errors": errors, "warnings": warnings, "sanitized": sanitized, "count": 0}
+    if not isinstance(examples, list):
+        return {"ok": False, "errors": ["Examples must be a list of objects."], "warnings": warnings, "sanitized": [], "count": 0}
+    for index, example in enumerate(examples):
+        if not isinstance(example, dict):
+            errors.append(f"Example {index} must be an object.")
+            continue
+        if not any(key in example for key in ("task", "input", "output", "notes")):
+            warnings.append(f"Example {index} is missing common fields such as task, input, output, or notes.")
+        for key in example:
+            lowered = str(key).lower()
+            if any(sensitive in lowered for sensitive in SENSITIVE_EXAMPLE_KEYS):
+                errors.append(f"Example {index} contains sensitive-looking field '{key}'.")
+    return {"ok": not errors, "errors": errors, "warnings": warnings, "sanitized": sanitized, "count": len(sanitized)}
+
+
+def validate_extraction_recipes(recipes: list[dict[str, Any]] | None) -> dict[str, Any]:
+    errors: list[str] = []
+    warnings: list[str] = []
+    sanitized = scrub_sensitive(recipes or [])
+    if recipes is None:
+        return {"ok": True, "errors": errors, "warnings": warnings, "sanitized": sanitized, "count": 0}
+    if not isinstance(recipes, list):
+        return {"ok": False, "errors": ["Extraction recipes must be a list of recipe objects."], "warnings": warnings, "sanitized": [], "count": 0}
+    for recipe_index, recipe in enumerate(recipes):
+        if not isinstance(recipe, dict):
+            errors.append(f"Recipe {recipe_index} must be an object.")
+            continue
+        name = recipe.get("name")
+        if not isinstance(name, str) or not name.strip():
+            errors.append(f"Recipe {recipe_index} must include a non-empty name.")
+        steps = recipe.get("steps")
+        if not isinstance(steps, list) or not steps:
+            errors.append(f"Recipe {recipe_index} must include a non-empty steps list.")
+            continue
+        for step_index, step in enumerate(steps):
+            if not isinstance(step, dict):
+                errors.append(f"Recipe {recipe_index} step {step_index} must be an object.")
+                continue
+            action = step.get("action")
+            if action not in ALLOWED_RECIPE_STEP_ACTIONS:
+                errors.append(f"Recipe {recipe_index} step {step_index} has unsupported action '{action}'.")
+            field = step.get("field")
+            if field is not None and (not isinstance(field, str) or not field.strip()):
+                errors.append(f"Recipe {recipe_index} step {step_index} field must be a non-empty string.")
+            selector = step.get("selector")
+            selectors = step.get("selectors")
+            if selector is None and selectors is None and action in {"click", "extract", "fill", "read_text", "wait_for"}:
+                warnings.append(f"Recipe {recipe_index} step {step_index} should usually include selector or selectors.")
+            for key in step:
+                lowered = str(key).lower()
+                if any(sensitive in lowered for sensitive in SENSITIVE_EXAMPLE_KEYS):
+                    errors.append(f"Recipe {recipe_index} step {step_index} contains sensitive-looking field '{key}'.")
+    return {"ok": not errors, "errors": errors, "warnings": warnings, "sanitized": sanitized, "count": len(sanitized)}
 
 
 def _call_name(node: ast.AST) -> str | None:
