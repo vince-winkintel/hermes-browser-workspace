@@ -127,7 +127,7 @@ def default_config_text(root: Path | None = None) -> str:
     workspace_root = str((root or default_workspace_root()).resolve())
     template = BrowserWorkspaceConfig(workspace_root=Path(workspace_root)).to_dict()
     lines = [
-        "# Hermes Browser Workspace Phase 1 config",
+        "# Hermes Browser Workspace Phase 2 config",
         f'workspace_root: "{template["workspace_root"]}"',
         f'helper_mutation_mode: "{template["helper_mutation_mode"]}"',
         f'browser_workspace_cdp_enabled: {str(template["browser_workspace_cdp_enabled"]).lower()}',

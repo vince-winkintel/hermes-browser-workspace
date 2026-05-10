@@ -20,8 +20,10 @@ Use Hermes Browser Workspace tools as a local-first browser workflow layer.
 - Helper mutation is proposal-only in Phase 1.
 - Domain skill saving is an explicit action, not an automatic side effect.
 
-## Phase 1 Notes
+## Phase 2 Notes
 
-- `browser_workspace_cdp` is enabled by default but bounded by local policy checks.
-- Session artifacts are stored under the browser workspace root with provenance metadata.
+- Review helper proposals through `browser_workspace_list_helper_proposals`, `browser_workspace_validate_helper_proposal`, and `browser_workspace_review_helper_proposal`.
+- Generate inspectable domain skill drafts with `browser_workspace_draft_domain_skill` before any explicit save flow.
+- Use `browser_workspace_list_artifacts` and dry-run `browser_workspace_cleanup_artifacts` to review retention effects before deletion.
+- `browser_workspace_cdp` remains enabled by default but bounded by local policy checks.
 - If Hermes integration points are missing, document the exact gap as an upstream Hermes PR candidate instead of forking Hermes.

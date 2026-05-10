@@ -99,6 +99,70 @@ TOOL_SPECS: dict[str, dict[str, Any]] = {
             ["proposed_content"],
         ),
     },
+    "browser_workspace_list_helper_proposals": {
+        "description": "List persisted helper proposals and their review state.",
+        "parameters": _object_schema({"status": {"type": ["string", "null"]}}),
+    },
+    "browser_workspace_review_helper_proposal": {
+        "description": "Read or record a review decision for a helper proposal.",
+        "parameters": _object_schema(
+            {
+                "proposal_id": {"type": "string"},
+                "decision": {"type": ["string", "null"]},
+                "reviewer": {"type": ["string", "null"]},
+                "decision_notes": {"type": ["string", "null"]},
+            },
+            ["proposal_id"],
+        ),
+    },
+    "browser_workspace_validate_helper_proposal": {
+        "description": "Validate helper proposal code structurally without executing it.",
+        "parameters": _object_schema({"proposal_id": {"type": "string"}}, ["proposal_id"]),
+    },
+    "browser_workspace_draft_domain_skill": {
+        "description": "Create an inspectable domain skill draft package from structured observations.",
+        "parameters": _object_schema(
+            {
+                "domain": {"type": "string"},
+                "observations": {"type": ["array", "null"], "items": {"type": "string"}},
+                "selectors": {"type": ["object", "null"]},
+                "examples": {"type": ["array", "null"], "items": {"type": "object"}},
+                "title": {"type": ["string", "null"]},
+                "task_id": {"type": ["string", "null"]},
+                "session_id": {"type": ["string", "null"]},
+                "helpers_code": {"type": ["string", "null"]},
+            },
+            ["domain"],
+        ),
+    },
+    "browser_workspace_validate_domain_skill": {
+        "description": "Validate a saved domain skill draft structure without activating it.",
+        "parameters": _object_schema({"draft_id": {"type": "string"}}, ["draft_id"]),
+    },
+    "browser_workspace_list_artifacts": {
+        "description": "List local browser workspace artifacts by kind, session, domain, or status.",
+        "parameters": _object_schema(
+            {
+                "kind": {"type": ["string", "null"]},
+                "status": {"type": ["string", "null"]},
+                "session_id": {"type": ["string", "null"]},
+                "domain": {"type": ["string", "null"]},
+            }
+        ),
+    },
+    "browser_workspace_cleanup_artifacts": {
+        "description": "Review or delete old local browser workspace artifacts with dry-run by default.",
+        "parameters": _object_schema(
+            {
+                "older_than_days": {"type": ["integer", "null"]},
+                "dry_run": {"type": ["boolean", "null"]},
+                "kind": {"type": ["string", "null"]},
+                "status": {"type": ["string", "null"]},
+                "session_id": {"type": ["string", "null"]},
+                "domain": {"type": ["string", "null"]},
+            }
+        ),
+    },
 }
 
 
@@ -142,6 +206,13 @@ class BrowserWorkspacePlugin:
             "browser_workspace_save_domain_skill": "save_domain_skill",
             "browser_workspace_read_helpers": "read_helpers",
             "browser_workspace_propose_helper_update": "propose_helper_update",
+            "browser_workspace_list_helper_proposals": "list_helper_proposals",
+            "browser_workspace_review_helper_proposal": "review_helper_proposal",
+            "browser_workspace_validate_helper_proposal": "validate_helper_proposal",
+            "browser_workspace_draft_domain_skill": "draft_domain_skill",
+            "browser_workspace_validate_domain_skill": "validate_domain_skill",
+            "browser_workspace_list_artifacts": "list_artifacts",
+            "browser_workspace_cleanup_artifacts": "cleanup_artifacts",
         }
         for tool_name, method_name in method_map.items():
             spec = TOOL_SPECS[tool_name]

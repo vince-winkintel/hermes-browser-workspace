@@ -6,10 +6,18 @@ from typing import Any, Callable
 
 from .capture import coordinate_fallback, write_capture_metadata
 from .cdp import check_cdp_policy, log_cdp_call
+from .artifacts import cleanup_artifacts, list_artifacts
 from .config import BrowserWorkspaceConfig
 from .doctor import run_doctor
-from .domain_skills import save_domain_skill, search_domain_skills
-from .helpers import propose_helper_update, read_helpers
+from .domain_skills import draft_domain_skill, save_domain_skill, search_domain_skills, validate_domain_skill_draft
+from .helpers import (
+    list_helper_proposals,
+    propose_helper_update,
+    read_helper_proposal,
+    read_helpers,
+    review_helper_proposal,
+    validate_helper_proposal,
+)
 from .workspace import append_session_event, create_session_context, load_or_create_config
 
 
@@ -79,6 +87,94 @@ class ToolRegistry:
             proposed_content=proposed_content,
             session_id=session_id,
             task_id=task_id,
+        )
+
+    def list_helper_proposals(self, status: str | None = None) -> dict[str, Any]:
+        return {"results": list_helper_proposals(self.config.workspace_root, status=status)}
+
+    def review_helper_proposal(
+        self,
+        proposal_id: str,
+        decision: str | None = None,
+        reviewer: str | None = None,
+        decision_notes: Any | None = None,
+    ) -> dict[str, Any]:
+        if decision is None:
+            return read_helper_proposal(self.config.workspace_root, proposal_id)
+        if reviewer is None:
+            raise ValueError("reviewer is required when recording a decision")
+        return review_helper_proposal(
+            self.config.workspace_root,
+            proposal_id=proposal_id,
+            decision=decision,
+            reviewer=reviewer,
+            decision_notes=decision_notes,
+        )
+
+    def validate_helper_proposal(self, proposal_id: str) -> dict[str, Any]:
+        return validate_helper_proposal(self.config.workspace_root, proposal_id)
+
+    def draft_domain_skill(
+        self,
+        domain: str,
+        observations: list[str] | None = None,
+        selectors: dict[str, Any] | None = None,
+        examples: list[dict[str, Any]] | None = None,
+        title: str | None = None,
+        task_id: str | None = None,
+        session_id: str | None = None,
+        helpers_code: str | None = None,
+    ) -> dict[str, Any]:
+        return draft_domain_skill(
+            self.config.workspace_root,
+            domain=domain,
+            observations=observations,
+            selectors=selectors,
+            examples=examples,
+            title=title,
+            task_id=task_id,
+            session_id=session_id,
+            helpers_code=helpers_code,
+        )
+
+    def validate_domain_skill(self, draft_id: str) -> dict[str, Any]:
+        return validate_domain_skill_draft(self.config.workspace_root, draft_id)
+
+    def list_artifacts(
+        self,
+        kind: str | None = None,
+        status: str | None = None,
+        session_id: str | None = None,
+        domain: str | None = None,
+    ) -> dict[str, Any]:
+        return {
+            "results": list_artifacts(
+                self.config.workspace_root,
+                kind=kind,
+                status=status,
+                session_id=session_id,
+                domain=domain,
+            )
+        }
+
+    def cleanup_artifacts(
+        self,
+        older_than_days: int | None = None,
+        dry_run: bool = True,
+        kind: str | None = None,
+        status: str | None = None,
+        session_id: str | None = None,
+        domain: str | None = None,
+    ) -> dict[str, Any]:
+        return cleanup_artifacts(
+            self.config.workspace_root,
+            self.config,
+            older_than_days=older_than_days,
+            dry_run=dry_run,
+            kind=kind,
+            status=status,
+            session_id=session_id,
+            domain=domain,
         )
 
 

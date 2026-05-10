@@ -5,12 +5,15 @@ import json
 import re
 from typing import Any
 
+from .artifacts import list_artifacts, persist_review_artifact
 from .provenance import build_provenance, utc_now_iso
 from .safety import SafetyError, scrub_sensitive, validate_domain_skill_status, validate_trust_state
 from .workspace import safe_join
+from .validation import validate_helper_code, validate_selectors
 
 
 DOMAIN_RE = re.compile(r"^[a-z0-9.-]+$")
+DRAFT_ID_RE = re.compile(r"^ds-[0-9a-z.+-]+$")
 
 
 def normalize_domain(domain: str) -> str:
@@ -101,3 +104,105 @@ def validate_domain_skill(workspace_root: Path, domain: str) -> dict[str, Any]:
     validate_domain_skill_status(metadata.get("status", "draft"))
     validate_trust_state(metadata.get("trust_state", "model_proposed"))
     return metadata
+
+
+def domain_skill_drafts_dir(workspace_root: Path) -> Path:
+    return safe_join(workspace_root, "sessions/domain-skill-drafts")
+
+
+def draft_domain_skill(
+    workspace_root: Path,
+    *,
+    domain: str,
+    observations: list[str] | None = None,
+    selectors: dict[str, Any] | None = None,
+    examples: list[dict[str, Any]] | None = None,
+    title: str | None = None,
+    task_id: str | None = None,
+    session_id: str | None = None,
+    helpers_code: str | None = None,
+) -> dict[str, Any]:
+    normalized_domain = normalize_domain(domain)
+    selectors_report = validate_selectors(selectors)
+    helper_report = validate_helper_code(helpers_code or "") if helpers_code is not None else {"ok": True, "errors": [], "warnings": []}
+    draft_id = f"ds-{utc_now_iso().replace(':', '-').lower()}"
+    draft_dir = domain_skill_drafts_dir(workspace_root) / draft_id
+    draft_dir.mkdir(parents=True, exist_ok=True)
+    sanitized_examples = scrub_sensitive(examples or [])
+    sanitized_observations = [str(item).strip() for item in (observations or []) if str(item).strip()]
+    skill_lines = [
+        f"# {title or normalized_domain}",
+        "",
+        "## Draft Notes",
+    ]
+    if sanitized_observations:
+        skill_lines.extend(f"- {line}" for line in sanitized_observations)
+    else:
+        skill_lines.append("- Draft generated from structured observations.")
+    skill_lines.extend(["", "## Safety", "- Review selectors and examples before activation.", "- Do not add secrets or account-specific details."])
+    metadata = {
+        "kind": "domain_skill_draft",
+        "draft_id": draft_id,
+        "domain": normalized_domain,
+        "title": title or normalized_domain,
+        "created_at": utc_now_iso(),
+        "status": "draft",
+        "trust_state": "model_proposed",
+        "author_type": "model_proposed",
+        "approval_state": "pending_review",
+        "provenance": build_provenance(session_id=session_id, task_id=task_id, domain=normalized_domain, host=normalized_domain),
+        "validation": {
+            "selectors": selectors_report,
+            "helpers": helper_report,
+        },
+    }
+    persist_review_artifact(draft_dir / "metadata.json", metadata)
+    (draft_dir / "SKILL.md").write_text("\n".join(skill_lines).rstrip() + "\n", encoding="utf-8")
+    if selectors_report["sanitized"]:
+        persist_review_artifact(draft_dir / "selectors.json", selectors_report["sanitized"])
+    if sanitized_examples:
+        persist_review_artifact(draft_dir / "examples.json", {"kind": "domain_skill_draft_examples", "examples": sanitized_examples})
+    if helpers_code is not None:
+        (draft_dir / "helpers.py").write_text((helpers_code.rstrip() + "\n") if helpers_code.strip() else "", encoding="utf-8")
+    return {
+        "draft_id": draft_id,
+        "domain": normalized_domain,
+        "path": str(draft_dir),
+        "validation": metadata["validation"],
+    }
+
+
+def validate_domain_skill_draft(workspace_root: Path, draft_id: str) -> dict[str, Any]:
+    if not DRAFT_ID_RE.fullmatch(draft_id):
+        raise SafetyError(f"Invalid domain skill draft id: {draft_id}")
+    draft_dir = domain_skill_drafts_dir(workspace_root) / draft_id
+    metadata_path = draft_dir / "metadata.json"
+    skill_path = draft_dir / "SKILL.md"
+    if not metadata_path.exists() or not skill_path.exists():
+        raise SafetyError(f"Incomplete domain skill draft: {draft_id}")
+    metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+    selectors = None
+    selectors_path = draft_dir / "selectors.json"
+    if selectors_path.exists():
+        selectors = json.loads(selectors_path.read_text(encoding="utf-8"))
+    helper_report = {"ok": True, "errors": [], "warnings": []}
+    helper_path = draft_dir / "helpers.py"
+    if helper_path.exists():
+        helper_report = validate_helper_code(helper_path.read_text(encoding="utf-8"))
+    validation = {
+        "selectors": validate_selectors(selectors),
+        "helpers": helper_report,
+    }
+    report = {
+        "kind": "domain_skill_validation_report",
+        "draft_id": draft_id,
+        "domain": metadata.get("domain"),
+        "created_at": utc_now_iso(),
+        "status": "completed",
+        "validation": validation,
+        "provenance": metadata.get("provenance"),
+    }
+    persist_review_artifact(draft_dir / "validation-report.json", report)
+    metadata["validation"] = validation
+    persist_review_artifact(metadata_path, metadata)
+    return {"draft_id": draft_id, "validation": validation, "report_path": str(draft_dir / "validation-report.json")}

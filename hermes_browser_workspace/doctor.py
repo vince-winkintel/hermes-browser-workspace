@@ -24,5 +24,5 @@ def run_doctor(config: BrowserWorkspaceConfig) -> dict[str, Any]:
     if config.real_chrome_profile_enabled and not config.real_chrome_profile_path:
         warnings.append("Real Chrome profile mode is enabled but no profile path is configured.")
     if config.helper_mutation_mode == "review_required":
-        warnings.append("Helper review_required mode is enabled; Phase 1 should still avoid trusted auto-apply.")
+        warnings.append("Helper review_required mode is enabled; Phase 2 should still avoid trusted auto-apply.")
     return {"checks": checks, "warnings": warnings, "workspace_root": str(config.workspace_root)}
