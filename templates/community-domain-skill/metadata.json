@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "domain": "example.com",
+  "title": "Example Domain Browser Workspace Skill",
+  "description": "Replace with a concise description of supported browser tasks.",
+  "supported_task_types": [
+    "example-task"
+  ],
+  "tags": [
+    "community",
+    "browser-workspace"
+  ],
+  "created_at": "YYYY-MM-DDTHH:MM:SSZ",
+  "updated_at": "YYYY-MM-DDTHH:MM:SSZ",
+  "last_verified_at": null,
+  "verification_status": "unknown",
+  "trust_state": "community_proposed",
+  "status": "draft",
+  "source_repository": "https://github.com/<org>/<repo>",
+  "source_commit": "<commit-sha>",
+  "maintainers": [
+    "<maintainer-handle>"
+  ],
+  "compatible_hermes_agent": ">=0.13.0",
+  "compatible_browser_workspace": ">=0.5.0",
+  "tested_with": {
+    "hermes_agent": null,
+    "browser_workspace_commit": null,
+    "browser": null,
+    "platform": null
+  },
+  "known_limitations": [
+    "Not locally trusted until reviewed and verified."
+  ]
+}

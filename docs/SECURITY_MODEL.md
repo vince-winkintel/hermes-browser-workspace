@@ -212,7 +212,17 @@ Phase 1 should at minimum document retention defaults and expose a cleanup path 
 - artifact retention conservative and configurable
 - no public publishing
 
-## 14. Security Review Questions for Checkpoint
+## 14. Community Ecosystem Safety
+
+Phase 5 community artifacts must preserve the same local trust boundary:
+
+- import community bundles as `draft` and `pending_review`
+- treat signatures, checksums, and maintainer review as provenance signals, not automatic trust
+- require explicit local promotion before active use
+- reject artifacts containing secrets, cookies, tokens, localStorage, private screenshots, customer data, or hidden executables
+- keep public marketplace, remote sync, and trusted auto-activation out of scope until a separate governance model exists
+
+## 15. Security Review Questions for Checkpoint
 
 - Is real profile support acceptable in Phase 1 if disabled by default?
 - Should `browser_workspace_cdp` be enabled by default or behind an explicit setting?

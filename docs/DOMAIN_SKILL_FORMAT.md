@@ -100,6 +100,26 @@ Phase 1 does not need a full schema registry if a simpler validator is enough.
 ## Non-Goals
 
 - cross-instance synchronization
-- signed skill bundles
-- public marketplace packaging
+- automatic trust of signed or reviewed skill bundles
+- public marketplace packaging without separate governance
 - complex inheritance across domains
+
+## Phase 5 Community Fields
+
+Community-maintained skills should extend `metadata.json` with:
+
+- `schema_version`
+- `description`
+- `supported_task_types`
+- `updated_at`
+- `verification_status`
+- `source_repository`
+- `source_commit`
+- `maintainers`
+- `compatible_hermes_agent`
+- `compatible_browser_workspace`
+- `tested_with`
+- `known_limitations`
+
+Recommended public-source `trust_state`: `community_proposed`.
+Recommended local import state: `draft` plus `pending_review` until explicitly promoted after local verification.

@@ -1,0 +1,13 @@
+{
+  "selectors": {
+    "example_element": {
+      "selector": "main",
+      "type": "css",
+      "purpose": "Replace with the element purpose.",
+      "stability": "unknown",
+      "notes": "Avoid selectors that encode account-specific IDs or private data."
+    }
+  },
+  "fallbacks": [],
+  "sensitive_fields": []
+}

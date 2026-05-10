@@ -20,13 +20,14 @@ Use Hermes Browser Workspace tools as a local-first browser workflow layer.
 - Helper mutation is proposal-only in Phase 1.
 - Domain skill saving is an explicit action, not an automatic side effect.
 
-## Phase 2-3 Notes
+## Phase 2-5 Notes
 
 - Review helper proposals through `browser_workspace_list_helper_proposals`, `browser_workspace_validate_helper_proposal`, and `browser_workspace_review_helper_proposal`.
 - Generate inspectable domain skill drafts with `browser_workspace_draft_domain_skill` before any explicit save flow.
 - Use `browser_workspace_list_artifacts` and dry-run `browser_workspace_cleanup_artifacts` to review retention effects before deletion.
 - Track freshness locally with `browser_workspace_mark_domain_skill_verified` and `browser_workspace_list_stale_domain_skills`; stale warnings are advisory only.
 - Store only redacted examples and extraction recipes; use explicit save flows and inspect imported packages before promoting any skill beyond draft.
-- Import/export packaging is local-only. Imported skills must remain pending review and must not become trusted automatically.
+- Import/export packaging is local-first. Community bundles, signatures, and maintainer reviews are provenance signals only; imported skills must remain pending review and must not become trusted automatically.
+- Use `docs/COMMUNITY_ECOSYSTEM.md`, `docs/DOMAIN_SKILL_CONTRIBUTING.md`, and `templates/community-domain-skill/` when creating public/community skill repositories.
 - `browser_workspace_cdp` remains enabled by default but bounded by local policy checks.
 - If Hermes integration points are missing, document the exact gap as an upstream Hermes PR candidate instead of forking Hermes.

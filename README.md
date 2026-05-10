@@ -4,9 +4,9 @@ Adaptive browser automation for Hermes: editable helpers, domain skills, CDP scr
 
 ## Status
 
-Phases 0–4 are complete. The repository contains the external Browser Workspace plugin, bundled skill guidance, local safety/review workflows, domain skill maturity features, and Phase 4 upstream-decision documentation.
+Phases 0–5 are complete. The repository contains the external Browser Workspace plugin, bundled skill guidance, local safety/review workflows, domain skill maturity features, upstream-decision documentation, and a conservative community ecosystem model.
 
-Phase 5 community ecosystem work must not begin until the Phase 4 checkpoint is reviewed and explicitly approved.
+Phase 5 community ecosystem work is complete; future community repository setup should use the Phase 5 templates and review model.
 
 ## What This Project Is
 
@@ -43,7 +43,12 @@ What is missing is a cohesive browser workspace pattern that makes these primiti
 - [Phase 2 checkpoint](docs/PHASE2_CHECKPOINT.md)
 - [Phase 3 checkpoint](docs/PHASE3_CHECKPOINT.md)
 - [Phase 4 checkpoint](docs/PHASE4_CHECKPOINT.md)
+- [Phase 5 checkpoint](docs/PHASE5_CHECKPOINT.md)
 - [Upstream Hermes PR candidates](docs/UPSTREAM_HERMES_PR_CANDIDATES.md)
+- [Community ecosystem model](docs/COMMUNITY_ECOSYSTEM.md)
+- [Domain skill contribution guide](docs/DOMAIN_SKILL_CONTRIBUTING.md)
+- [Bundle trust and review](docs/BUNDLE_TRUST_AND_REVIEW.md)
+- [Compatibility matrix](docs/COMPATIBILITY_MATRIX.md)
 - [Domain skill format](docs/DOMAIN_SKILL_FORMAT.md)
 - [Plugin installation model](docs/PLUGIN_INSTALLATION_MODEL.md)
 
@@ -110,4 +115,4 @@ The plugin includes browser workspace tools for local setup, CDP/capture helpers
 
 ## Next Step
 
-Review [docs/PHASE4_CHECKPOINT.md](docs/PHASE4_CHECKPOINT.md) and [docs/UPSTREAM_HERMES_PR_CANDIDATES.md](docs/UPSTREAM_HERMES_PR_CANDIDATES.md). Future upstream Hermes PR tasks should use the candidate artifact as prompt context; Phase 5 requires explicit approval before starting.
+The original roadmap phases are complete. Future work should be framed as a narrow upstream Hermes PR task, a scoped Browser Workspace follow-on, or a community repository setup task using the Phase 5 templates and review model.

@@ -1,0 +1,20 @@
+{
+  "recipes": [
+    {
+      "name": "example_recipe",
+      "description": "Replace with a generic, non-account-specific extraction or navigation recipe.",
+      "supported_task_type": "example-task",
+      "steps": [
+        "Open the public page or safe test page.",
+        "Use documented selectors only after confirming the page matches expected shape."
+      ],
+      "expected_output": {
+        "type": "object",
+        "required_fields": []
+      },
+      "safety_notes": [
+        "Do not run this recipe on private or sensitive pages until locally verified."
+      ]
+    }
+  ]
+}

@@ -152,6 +152,8 @@ Checkpoint questions:
 
 ## Phase 5: Community Ecosystem
 
+Status: complete. See `PHASE5_CHECKPOINT.md`, `COMMUNITY_ECOSYSTEM.md`, `DOMAIN_SKILL_CONTRIBUTING.md`, `BUNDLE_TRUST_AND_REVIEW.md`, and `COMPATIBILITY_MATRIX.md`.
+
 Goal:
 
 Support broader open-source collaboration without weakening security posture.
@@ -173,6 +175,14 @@ Success criteria:
 
 - ecosystem sharing improves reuse without encouraging unsafe defaults
 - provenance and trust remain visible to end users
+
+Deliverables:
+
+- community ecosystem model and repository shape
+- domain skill contribution guide and review checklist
+- bundle trust/review guidance for checksums, signatures, and local promotion
+- compatibility matrix guidance
+- reusable community-domain-skill template
 
 Checkpoint questions:
 
