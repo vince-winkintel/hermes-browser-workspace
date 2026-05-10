@@ -4,9 +4,9 @@ Adaptive browser automation for Hermes: editable helpers, domain skills, CDP scr
 
 ## Status
 
-Phase 0 only. This repository currently contains a technical specification and project plan. It does not yet include the runtime plugin, packaged skill, or browser workspace implementation.
+Phases 0–4 are complete. The repository contains the external Browser Workspace plugin, bundled skill guidance, local safety/review workflows, domain skill maturity features, and Phase 4 upstream-decision documentation.
 
-Phase 1 must not begin until the Phase 0 checkpoint is reviewed and explicitly approved.
+Phase 5 community ecosystem work must not begin until the Phase 4 checkpoint is reviewed and explicitly approved.
 
 ## What This Project Is
 
@@ -32,13 +32,18 @@ Hermes already has strong primitives:
 
 What is missing is a cohesive browser workspace pattern that makes these primitives easy to combine into repeatable browser automation workflows. Hermes Browser Workspace is intended to fill that gap as an installable plugin-first layer.
 
-## Phase 0 Deliverables
+## Phase and Decision Artifacts
 
 - [Technical spec](docs/TECH_SPEC.md)
 - [Architecture](docs/ARCHITECTURE.md)
 - [Security model](docs/SECURITY_MODEL.md)
 - [Roadmap](docs/ROADMAP.md)
 - [Phase 0 checkpoint](docs/PHASE0_CHECKPOINT.md)
+- [Phase 1 checkpoint](docs/PHASE1_CHECKPOINT.md)
+- [Phase 2 checkpoint](docs/PHASE2_CHECKPOINT.md)
+- [Phase 3 checkpoint](docs/PHASE3_CHECKPOINT.md)
+- [Phase 4 checkpoint](docs/PHASE4_CHECKPOINT.md)
+- [Upstream Hermes PR candidates](docs/UPSTREAM_HERMES_PR_CANDIDATES.md)
 - [Domain skill format](docs/DOMAIN_SKILL_FORMAT.md)
 - [Plugin installation model](docs/PLUGIN_INSTALLATION_MODEL.md)
 
@@ -80,9 +85,9 @@ Planned runtime workspace:
       examples/
 ```
 
-## Planned Tool Surface
+## Tool Surface
 
-The current proposal targets these plugin tools in Phase 1 and later:
+The plugin includes browser workspace tools for local setup, CDP/capture helpers, helper proposals, artifacts, domain skill review, verification/staleness tracking, examples, recipes, and local import/export packaging. The original Phase 1 seed tools were:
 
 - `browser_workspace_doctor`
 - `browser_workspace_run`
@@ -105,4 +110,4 @@ The current proposal targets these plugin tools in Phase 1 and later:
 
 ## Next Step
 
-Review [docs/PHASE0_CHECKPOINT.md](docs/PHASE0_CHECKPOINT.md). Phase 1 should begin only after Vinny approves the Phase 0 decisions and MVP boundary.
+Review [docs/PHASE4_CHECKPOINT.md](docs/PHASE4_CHECKPOINT.md) and [docs/UPSTREAM_HERMES_PR_CANDIDATES.md](docs/UPSTREAM_HERMES_PR_CANDIDATES.md). Future upstream Hermes PR tasks should use the candidate artifact as prompt context; Phase 5 requires explicit approval before starting.

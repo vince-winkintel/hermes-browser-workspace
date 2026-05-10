@@ -9,7 +9,7 @@
 
 ## Phase 0: Specification
 
-Status: current phase
+Status: complete
 
 Objectives:
 
@@ -121,6 +121,8 @@ Checkpoint questions:
 
 ## Phase 4: Ecosystem and Upstream Decisions
 
+Status: complete. See `PHASE4_CHECKPOINT.md` and `UPSTREAM_HERMES_PR_CANDIDATES.md`.
+
 Goal:
 
 Decide what should remain plugin-local and what should move upstream into Hermes core.
@@ -136,6 +138,12 @@ Success criteria:
 
 - upstream proposals are backed by concrete plugin pain points
 - plugin-local innovation remains possible without blocking on core changes
+
+Deliverables:
+
+- standalone upstream PR candidate prompt-resource artifact
+- explicit plugin-local vs upstream boundary decisions
+- Kanban board backfill from ideation through Phase 4
 
 Checkpoint questions:
 
