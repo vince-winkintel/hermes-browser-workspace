@@ -29,13 +29,19 @@ Secondary compatibility target:
 
 ### Option A: Pip Package
 
-Future shape:
+Current public-alpha target after repository publication:
 
 ```text
-pip install hermes-browser-workspace
+python -m pip install git+https://github.com/<owner>/hermes-browser-workspace.git
 ```
 
-This should register the plugin through `hermes_agent.plugins` and provide packaged templates and skill files.
+For local development from a checkout:
+
+```text
+python -m pip install -e .
+```
+
+This registers the plugin through `hermes_agent.plugins` and includes packaged helper/skill resources needed for first-run bootstrap.
 
 ### Option B: Directory Plugin
 
@@ -67,13 +73,13 @@ Bootstrap responsibilities:
 
 ## Upgrade Considerations
 
-Later phases should plan for:
+Track 3 will exercise update behavior from a public GitHub install. Current expectations:
 
-- workspace schema versioning
-- template migrations
-- skill metadata migrations
+- package updates must not overwrite existing local helpers, domain skills, examples, recipes, or review artifacts
+- starter templates may change in the installed package, but local workspace files remain user-owned after first bootstrap
+- future workspace schema migrations should be explicit, reviewable, and dry-run capable when practical
 
-Phase 1 can keep migrations minimal if they are documented clearly.
+Later releases should add workspace schema versioning and migration commands if package updates introduce incompatible local data changes.
 
 ## Success Criteria
 

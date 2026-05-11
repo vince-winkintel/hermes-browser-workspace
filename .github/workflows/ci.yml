@@ -1,0 +1,74 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.10', '3.11', '3.12']
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install package
+        run: python -m pip install -e .
+
+      - name: Run tests
+        run: python -m pytest -q
+
+      - name: Compile Python sources
+        run: python -m compileall hermes_browser_workspace tests
+
+      - name: Plugin registration smoke test
+        run: python -c "from hermes_browser_workspace.plugin import get_plugin; names=get_plugin().tool_names(); assert len(names) == 23; print(names)"
+
+      - name: Validate JSON templates
+        run: python -m json.tool templates/community-domain-skill/metadata.json > /dev/null && python -m json.tool templates/community-domain-skill/selectors.json > /dev/null && python -m json.tool templates/community-domain-skill/recipes.json > /dev/null
+
+  build:
+    name: Package build smoke
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Build distributions
+        run: |
+          python -m pip install build
+          python -m build
+
+      - name: Inspect wheel resources
+        run: |
+          python - <<'PY'
+          import zipfile
+          from pathlib import Path
+          wheel = next(Path('dist').glob('*.whl'))
+          names = set(zipfile.ZipFile(wheel).namelist())
+          required = {
+              'hermes_browser_workspace/resources/templates/agent_helpers.py',
+              'hermes_browser_workspace/resources/skills/browser-workspace/SKILL.md',
+          }
+          missing = sorted(required - names)
+          if missing:
+              raise SystemExit(f'Missing wheel resources: {missing}')
+          print(f'Wheel resources OK: {wheel}')
+          PY

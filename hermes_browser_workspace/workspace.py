@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from importlib.resources import files
 from pathlib import Path
 import json
-import shutil
 from typing import Any
 
 from .config import BrowserWorkspaceConfig, default_config_text, load_config
@@ -24,6 +24,18 @@ that does not require secrets or account-specific data.
 def normalize_text(value: str) -> str:
     return " ".join(value.split())
 '''
+
+
+def load_template_helpers_text() -> str:
+    """Load the starter helper template from packaged resources or repo files."""
+    try:
+        return files("hermes_browser_workspace.resources.templates").joinpath("agent_helpers.py").read_text(
+            encoding="utf-8"
+        )
+    except Exception:
+        if TEMPLATE_HELPERS_PATH.exists():
+            return TEMPLATE_HELPERS_PATH.read_text(encoding="utf-8")
+        return DEFAULT_HELPERS_TEXT
 
 
 @dataclass
@@ -58,10 +70,7 @@ def bootstrap_workspace(root: Path) -> dict[str, str]:
     if not paths["config"].exists():
         paths["config"].write_text(default_config_text(root), encoding="utf-8")
     if not paths["helpers"].exists():
-        if TEMPLATE_HELPERS_PATH.exists():
-            shutil.copyfile(TEMPLATE_HELPERS_PATH, paths["helpers"])
-        else:
-            paths["helpers"].write_text(DEFAULT_HELPERS_TEXT, encoding="utf-8")
+        paths["helpers"].write_text(load_template_helpers_text(), encoding="utf-8")
     return {name: str(path) for name, path in paths.items()}
 
 

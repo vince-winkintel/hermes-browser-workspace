@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "Local Hermes browser workspace plugin with safer adaptation workflows"
 readme = "README.md"
 requires-python = ">=3.10"
-license = {text = "MIT"}
+license = "MIT"
 authors = [
   {name = "Hermes Browser Workspace Contributors"}
 ]
@@ -24,7 +24,10 @@ include-package-data = true
 include = ["hermes_browser_workspace*"]
 
 [tool.setuptools.package-data]
-hermes_browser_workspace = ["../templates/agent_helpers.py", "../skills/browser-workspace/SKILL.md"]
+hermes_browser_workspace = [
+  "resources/templates/agent_helpers.py",
+  "resources/skills/browser-workspace/SKILL.md",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

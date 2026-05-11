@@ -6,6 +6,8 @@ Adaptive browser automation for Hermes: editable helpers, domain skills, CDP scr
 
 Phases 0–5 are complete. The repository contains the external Browser Workspace plugin, bundled skill guidance, local safety/review workflows, domain skill maturity features, upstream-decision documentation, and a conservative community ecosystem model.
 
+Current status: public-alpha candidate. Track 1 public-repository readiness is preparing this source tree for publication before the GitHub remote is created or pushed.
+
 Phase 5 community ecosystem work is complete; future community repository setup should use the Phase 5 templates and review model.
 
 ## What This Project Is
@@ -49,6 +51,7 @@ What is missing is a cohesive browser workspace pattern that makes these primiti
 - [Domain skill contribution guide](docs/DOMAIN_SKILL_CONTRIBUTING.md)
 - [Bundle trust and review](docs/BUNDLE_TRUST_AND_REVIEW.md)
 - [Compatibility matrix](docs/COMPATIBILITY_MATRIX.md)
+- [Public repository readiness checklist](docs/PUBLIC_REPO_READINESS.md)
 - [Domain skill format](docs/DOMAIN_SKILL_FORMAT.md)
 - [Plugin installation model](docs/PLUGIN_INSTALLATION_MODEL.md)
 
@@ -60,20 +63,21 @@ What is missing is a cohesive browser workspace pattern that makes these primiti
 - Human checkpoints: each roadmap phase ends with explicit approval gates.
 - Honest scope: do not overclaim around cloud browsers, anti-bot behavior, or skill sharing effects.
 
-## Intended Future Shape
-
-Planned repository shape in later phases:
+## Repository Shape
 
 ```text
 hermes-browser-workspace/
   pyproject.toml
   hermes_browser_workspace/
+    resources/
+      templates/agent_helpers.py
+      skills/browser-workspace/SKILL.md
   skills/browser-workspace/SKILL.md
-  templates/agent_helpers.py
+  templates/
   docs/
 ```
 
-Planned runtime workspace:
+Runtime workspace:
 
 ```text
 ~/.hermes/browser-workspace/
@@ -105,13 +109,38 @@ The plugin includes browser workspace tools for local setup, CDP/capture helpers
 - `browser_workspace_save_domain_skill`
 - `browser_workspace_learn_from_task`
 
+## Installation and Update
+
+This repository is not pushed publicly yet. After publication, the intended GitHub install path is:
+
+```bash
+python -m pip install git+https://github.com/<owner>/hermes-browser-workspace.git
+```
+
+For local development from a checkout:
+
+```bash
+git clone https://github.com/<owner>/hermes-browser-workspace.git
+cd hermes-browser-workspace
+python -m pip install -e .
+python -m pytest -q
+```
+
+To update from GitHub after publication:
+
+```bash
+python -m pip install --upgrade git+https://github.com/<owner>/hermes-browser-workspace.git
+```
+
+The plugin registers through the `hermes_agent.plugins` entry point group. A first run of `browser_workspace_doctor` bootstraps local files under the user's Hermes Browser Workspace directory without overwriting existing local domain skills or helpers.
+
 ## Non-Goals
 
 - Replacing Hermes browser tools
 - Shipping a Hermes fork
 - Reproducing proprietary cloud browser features
 - Enabling unrestricted self-modifying code without review controls
-- Starting Phase 1 implementation during Phase 0
+- Automatically trusting imported community skills or helper code
 
 ## Next Step
 
