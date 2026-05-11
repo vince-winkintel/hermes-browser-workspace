@@ -1,0 +1,15 @@
+{
+  "source_type": "synthetic",
+  "generated_at": "YYYY-MM-DDTHH:MM:SSZ",
+  "task_type": "example-task",
+  "input": {
+    "url": "https://example.org/"
+  },
+  "expected_output": {
+    "type": "object",
+    "description": "Replace with the redacted or synthetic expected output shape."
+  },
+  "safety_notes": [
+    "Do not include cookies, tokens, credentials, account-specific URLs, private traces, or screenshots with private content."
+  ]
+}

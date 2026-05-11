@@ -10,6 +10,7 @@ Purpose: prompt-resource artifact for future tasks that generate upstream Hermes
 - Phase 3 added local package import/export, richer metadata, verification status, and checksums, exposing missing provenance/trust conventions.
 - Phase 4 decision: keep browser-workspace experimentation plugin-local, but prepare focused upstream PRs for stable seams that multiple plugins or Hermes core tools can reuse.
 - Post-roadmap Track 4 dogfooded the helper/domain-skill workflow on `example.org`, adding evidence that helper proposals, validation reports, domain-skill drafts, import review state, and artifact cleanup status need consistent review surfaces and trust vocabulary.
+- Post-roadmap Track 5 piloted a community domain-skill contribution workflow, adding evidence for shared `community_proposed` trust vocabulary, PR/review artifacts, compatibility metadata, and import-as-untrusted semantics.
 
 ## Candidate 1: Standard Plugin Artifact and Review Surface
 
@@ -65,6 +66,7 @@ Document and optionally expose helper utilities/dataclasses for common metadata 
 
 - Phase 3 richer domain skill metadata and local package checksums are useful beyond browser skills.
 - Imported artifacts intentionally downgrade to draft/pending-review; this trust pattern should be reusable.
+- Track 5 required a distinct `community_proposed` signal for source contributions that are maintainer-reviewed but still not locally trusted by consumers.
 
 ### Suggested PR Boundary
 

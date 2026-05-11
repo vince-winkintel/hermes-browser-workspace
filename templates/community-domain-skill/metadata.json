@@ -16,13 +16,15 @@
   "verification_status": "unknown",
   "trust_state": "community_proposed",
   "status": "draft",
+  "approval_state": "pending_review",
+  "author_type": "human_authored",
   "source_repository": "https://github.com/<org>/<repo>",
   "source_commit": "<commit-sha>",
   "maintainers": [
     "<maintainer-handle>"
   ],
   "compatible_hermes_agent": ">=0.13.0",
-  "compatible_browser_workspace": ">=0.5.0",
+  "compatible_browser_workspace": ">=0.1.0",
   "tested_with": {
     "hermes_agent": null,
     "browser_workspace_commit": null,

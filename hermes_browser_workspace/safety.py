@@ -7,7 +7,7 @@ from typing import Any
 
 ALLOWED_HELPER_MUTATION_MODES = {"read_only", "propose_only", "review_required"}
 ALLOWED_DOMAIN_SKILL_STATUSES = {"draft", "active", "stale", "disabled"}
-ALLOWED_TRUST_STATES = {"human_authored", "model_proposed", "human_reviewed", "trusted_local", "disabled"}
+ALLOWED_TRUST_STATES = {"human_authored", "model_proposed", "community_proposed", "human_reviewed", "trusted_local", "disabled"}
 DEFAULT_REDACT_KEYS = {"token", "cookie", "authorization", "password", "secret", "localstorage", "local_storage", "api_key"}
 SENSITIVE_TEXT_RE = re.compile(
     r"(?i)\b(token|cookie|authorization|password|secret|api[_-]?key|localstorage)\b(\s*[:=]\s*)([^\s,;]+|['\"][^'\"]*['\"])",

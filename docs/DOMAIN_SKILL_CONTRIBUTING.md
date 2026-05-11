@@ -28,6 +28,7 @@ skills/<domain>/
   metadata.json
   selectors.json
   REVIEW_CHECKLIST.md
+  PR_SUMMARY.md
 ```
 
 Optional files:
@@ -55,6 +56,9 @@ Avoid helper code unless there is a strong reason. Helper code raises review bur
 - `last_verified_at`
 - `verification_status`
 - `trust_state`
+- `status`
+- `approval_state`
+- `author_type`
 - `source_repository`
 - `source_commit`
 - `maintainers`
@@ -89,6 +93,8 @@ A domain skill PR should include:
 4. sensitive-data review statement
 5. compatibility notes
 6. screenshots only if they are public/redacted and necessary
+
+Use the template `PR_SUMMARY.md` as the default PR body. It keeps verification, compatibility, and sensitive-data claims reviewable without requiring maintainers to infer them from the contribution files.
 
 ## Versioning
 
