@@ -52,6 +52,7 @@ What is missing is a cohesive browser workspace pattern that makes these primiti
 - [Bundle trust and review](docs/BUNDLE_TRUST_AND_REVIEW.md)
 - [Compatibility matrix](docs/COMPATIBILITY_MATRIX.md)
 - [Public repository readiness checklist](docs/PUBLIC_REPO_READINESS.md)
+- [Track 3 install/update verification](docs/TRACK3_INSTALL_UPDATE_VERIFICATION.md)
 - [Domain skill format](docs/DOMAIN_SKILL_FORMAT.md)
 - [Plugin installation model](docs/PLUGIN_INSTALLATION_MODEL.md)
 
@@ -123,7 +124,7 @@ For local development from a checkout:
 ```bash
 git clone https://github.com/vince-winkintel/hermes-browser-workspace.git
 cd hermes-browser-workspace
-python -m pip install -e .
+python -m pip install -e .[test]
 python -m pytest -q
 ```
 

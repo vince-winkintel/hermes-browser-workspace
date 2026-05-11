@@ -38,7 +38,7 @@ python -m pip install git+https://github.com/vince-winkintel/hermes-browser-work
 For local development from a checkout:
 
 ```text
-python -m pip install -e .
+python -m pip install -e .[test]
 ```
 
 This registers the plugin through `hermes_agent.plugins` and includes packaged helper/skill resources needed for first-run bootstrap.
@@ -73,7 +73,9 @@ Bootstrap responsibilities:
 
 ## Upgrade Considerations
 
-Track 3 will exercise update behavior from a public GitHub install. Current expectations:
+Track 3 exercised update behavior from the public GitHub install path; see `TRACK3_INSTALL_UPDATE_VERIFICATION.md`.
+
+Current expectations:
 
 - package updates must not overwrite existing local helpers, domain skills, examples, recipes, or review artifacts
 - starter templates may change in the installed package, but local workspace files remain user-owned after first bootstrap

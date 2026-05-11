@@ -7,7 +7,7 @@ Thanks for your interest in Hermes Browser Workspace. The project is currently a
 ```bash
 git clone https://github.com/vince-winkintel/hermes-browser-workspace.git
 cd hermes-browser-workspace
-python -m pip install -e .
+python -m pip install -e .[test]
 python -m pytest -q
 ```
 

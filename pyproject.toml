@@ -14,6 +14,9 @@ authors = [
 ]
 dependencies = []
 
+[project.optional-dependencies]
+test = ["pytest"]
+
 [project.urls]
 Homepage = "https://github.com/vince-winkintel/hermes-browser-workspace"
 Repository = "https://github.com/vince-winkintel/hermes-browser-workspace"

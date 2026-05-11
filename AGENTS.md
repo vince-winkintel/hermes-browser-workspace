@@ -27,7 +27,7 @@ Important boundaries:
 Use Python 3.10+.
 
 ```bash
-python -m pip install -e .
+python -m pip install -e .[test]
 python -m pytest -q
 ```
 
