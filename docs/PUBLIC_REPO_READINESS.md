@@ -18,7 +18,8 @@ Use this checklist before creating or pushing the public GitHub repository.
 
 - [ ] README describes project status as public alpha / experimental.
 - [ ] README includes install and update commands for local editable and GitHub installs.
-- [ ] `LICENSE`, `CONTRIBUTING.md`, `SECURITY.md`, and `CHANGELOG.md` exist.
+- [ ] `LICENSE`, `CONTRIBUTING.md`, `SECURITY.md`, `CHANGELOG.md`, and `AGENTS.md` exist.
+- [ ] `AGENTS.md` gives coding agents project overview, setup/build/test commands, code style, testing instructions, security considerations, and commit/PR guidance.
 - [ ] Safety boundaries remain explicit: no auto-trust, no marketplace, no hidden remote sync, no anti-bot bypass behavior.
 
 ## Packaging

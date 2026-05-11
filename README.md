@@ -67,6 +67,7 @@ What is missing is a cohesive browser workspace pattern that makes these primiti
 
 ```text
 hermes-browser-workspace/
+  AGENTS.md
   pyproject.toml
   hermes_browser_workspace/
     resources/
