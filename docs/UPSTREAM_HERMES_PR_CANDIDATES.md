@@ -11,6 +11,13 @@ Purpose: prompt-resource artifact for future tasks that generate upstream Hermes
 - Phase 4 decision: keep browser-workspace experimentation plugin-local, but prepare focused upstream PRs for stable seams that multiple plugins or Hermes core tools can reuse.
 - Post-roadmap Track 4 dogfooded the helper/domain-skill workflow on `example.org`, adding evidence that helper proposals, validation reports, domain-skill drafts, import review state, and artifact cleanup status need consistent review surfaces and trust vocabulary.
 - Post-roadmap Track 5 piloted a community domain-skill contribution workflow, adding evidence for shared `community_proposed` trust vocabulary, PR/review artifacts, compatibility metadata, and import-as-untrusted semantics.
+- Post-roadmap Track 7 prepared the first upstream PR candidate packet in `TRACK7_UPSTREAM_PR_CANDIDATE.md`, selecting shared provenance/trust metadata conventions as the safest first upstream seam.
+
+## First Upstream Candidate Packet
+
+Track 7 selected **shared provenance/trust metadata conventions** as the first upstream Hermes PR candidate. Use `TRACK7_UPSTREAM_PR_CANDIDATE.md` as the implementation-ready packet after explicit approval to work against Hermes core.
+
+The recommended first PR remains additive and narrow: documentation plus optional backwards-compatible `PluginManifest` metadata preservation. It must not vendor Browser Workspace code, add browser-specific behavior, or treat provenance signals as authorization.
 
 ## Candidate 1: Standard Plugin Artifact and Review Surface
 

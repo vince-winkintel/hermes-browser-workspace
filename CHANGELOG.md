@@ -4,7 +4,7 @@ All notable project changes will be recorded here.
 
 ## Unreleased
 
-- No unreleased changes yet.
+- Added Track 7 plan-only upstream Hermes PR candidate packet for shared plugin provenance/trust metadata conventions.
 
 ## 0.1.0-alpha.1 - 2026-05-11
 

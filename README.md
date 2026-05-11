@@ -62,6 +62,7 @@ What is missing is a cohesive browser workspace pattern that makes these primiti
 - [Track 4 dogfood helper/domain-skill workflow](docs/TRACK4_DOGFOOD_HELPER_DOMAIN_SKILL.md)
 - [Track 5 community skill contribution pilot](docs/TRACK5_COMMUNITY_SKILL_CONTRIBUTION_PILOT.md)
 - [Track 6 alpha release](docs/TRACK6_ALPHA_RELEASE.md)
+- [Track 7 upstream Hermes PR candidate](docs/TRACK7_UPSTREAM_PR_CANDIDATE.md)
 - [Domain skill format](docs/DOMAIN_SKILL_FORMAT.md)
 - [Plugin installation model](docs/PLUGIN_INSTALLATION_MODEL.md)
 
