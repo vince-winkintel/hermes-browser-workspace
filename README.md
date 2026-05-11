@@ -6,9 +6,15 @@ Adaptive browser automation for Hermes: editable helpers, domain skills, CDP scr
 
 Phases 0–5 are complete. The repository contains the external Browser Workspace plugin, bundled skill guidance, local safety/review workflows, domain skill maturity features, upstream-decision documentation, and a conservative community ecosystem model.
 
-Current status: public alpha. The public GitHub repository is published at `https://github.com/vince-winkintel/hermes-browser-workspace`.
+Current status: public alpha. The public GitHub repository is published at `https://github.com/vince-winkintel/hermes-browser-workspace`; the first alpha release is tagged as `v0.1.0-alpha.1`.
 
-Phase 5 community ecosystem work is complete; future community repository setup should use the Phase 5 templates and review model.
+Install the tagged alpha release:
+
+```bash
+python -m pip install git+https://github.com/vince-winkintel/hermes-browser-workspace.git@v0.1.0-alpha.1
+```
+
+PyPI publishing is intentionally out of scope for this alpha; install from GitHub by branch, commit, or tag.
 
 ## What This Project Is
 
@@ -55,6 +61,7 @@ What is missing is a cohesive browser workspace pattern that makes these primiti
 - [Track 3 install/update verification](docs/TRACK3_INSTALL_UPDATE_VERIFICATION.md)
 - [Track 4 dogfood helper/domain-skill workflow](docs/TRACK4_DOGFOOD_HELPER_DOMAIN_SKILL.md)
 - [Track 5 community skill contribution pilot](docs/TRACK5_COMMUNITY_SKILL_CONTRIBUTION_PILOT.md)
+- [Track 6 alpha release](docs/TRACK6_ALPHA_RELEASE.md)
 - [Domain skill format](docs/DOMAIN_SKILL_FORMAT.md)
 - [Plugin installation model](docs/PLUGIN_INSTALLATION_MODEL.md)
 
@@ -119,6 +126,12 @@ Install from GitHub:
 
 ```bash
 python -m pip install git+https://github.com/vince-winkintel/hermes-browser-workspace.git
+```
+
+For a pinned alpha install:
+
+```bash
+python -m pip install git+https://github.com/vince-winkintel/hermes-browser-workspace.git@v0.1.0-alpha.1
 ```
 
 For local development from a checkout:

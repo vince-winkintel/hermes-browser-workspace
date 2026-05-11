@@ -4,7 +4,12 @@ Hermes Browser Workspace is experimental public-alpha software for local-first b
 
 ## Supported Versions
 
-Until the first tagged release, only the current `main` branch is supported for security review and fixes. After release tags begin, this file will identify supported release lines.
+| Version | Supported |
+| --- | --- |
+| `v0.1.0-alpha.1` | Yes, for alpha/security feedback |
+| `main` | Yes, for current development fixes |
+
+The alpha tag is experimental and may change shape before any stable release. Prefer `main` for local development and `v0.1.0-alpha.1` for reproducing alpha reports.
 
 ## Reporting a Vulnerability
 
