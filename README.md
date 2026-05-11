@@ -6,7 +6,7 @@ Adaptive browser automation for Hermes: editable helpers, domain skills, CDP scr
 
 Phases 0–5 are complete. The repository contains the external Browser Workspace plugin, bundled skill guidance, local safety/review workflows, domain skill maturity features, upstream-decision documentation, and a conservative community ecosystem model.
 
-Current status: public-alpha candidate. Track 1 public-repository readiness is preparing this source tree for publication before the GitHub remote is created or pushed.
+Current status: public alpha. The public GitHub repository is published at `https://github.com/vince-winkintel/hermes-browser-workspace`.
 
 Phase 5 community ecosystem work is complete; future community repository setup should use the Phase 5 templates and review model.
 
@@ -112,16 +112,16 @@ The plugin includes browser workspace tools for local setup, CDP/capture helpers
 
 ## Installation and Update
 
-This repository is not pushed publicly yet. After publication, the intended GitHub install path is:
+Install from GitHub:
 
 ```bash
-python -m pip install git+https://github.com/<owner>/hermes-browser-workspace.git
+python -m pip install git+https://github.com/vince-winkintel/hermes-browser-workspace.git
 ```
 
 For local development from a checkout:
 
 ```bash
-git clone https://github.com/<owner>/hermes-browser-workspace.git
+git clone https://github.com/vince-winkintel/hermes-browser-workspace.git
 cd hermes-browser-workspace
 python -m pip install -e .
 python -m pytest -q
@@ -130,7 +130,7 @@ python -m pytest -q
 To update from GitHub after publication:
 
 ```bash
-python -m pip install --upgrade git+https://github.com/<owner>/hermes-browser-workspace.git
+python -m pip install --upgrade git+https://github.com/vince-winkintel/hermes-browser-workspace.git
 ```
 
 The plugin registers through the `hermes_agent.plugins` entry point group. A first run of `browser_workspace_doctor` bootstraps local files under the user's Hermes Browser Workspace directory without overwriting existing local domain skills or helpers.

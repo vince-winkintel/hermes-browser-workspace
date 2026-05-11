@@ -32,7 +32,7 @@ Secondary compatibility target:
 Current public-alpha target after repository publication:
 
 ```text
-python -m pip install git+https://github.com/<owner>/hermes-browser-workspace.git
+python -m pip install git+https://github.com/vince-winkintel/hermes-browser-workspace.git
 ```
 
 For local development from a checkout:
