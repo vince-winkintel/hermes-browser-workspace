@@ -9,6 +9,7 @@ Purpose: prompt-resource artifact for future tasks that generate upstream Hermes
 - Phase 2 added review artifacts, helper validation, and artifact cleanup, exposing missing shared UX and validation primitives.
 - Phase 3 added local package import/export, richer metadata, verification status, and checksums, exposing missing provenance/trust conventions.
 - Phase 4 decision: keep browser-workspace experimentation plugin-local, but prepare focused upstream PRs for stable seams that multiple plugins or Hermes core tools can reuse.
+- Post-roadmap Track 4 dogfooded the helper/domain-skill workflow on `example.org`, adding evidence that helper proposals, validation reports, domain-skill drafts, import review state, and artifact cleanup status need consistent review surfaces and trust vocabulary.
 
 ## Candidate 1: Standard Plugin Artifact and Review Surface
 

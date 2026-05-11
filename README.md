@@ -53,6 +53,7 @@ What is missing is a cohesive browser workspace pattern that makes these primiti
 - [Compatibility matrix](docs/COMPATIBILITY_MATRIX.md)
 - [Public repository readiness checklist](docs/PUBLIC_REPO_READINESS.md)
 - [Track 3 install/update verification](docs/TRACK3_INSTALL_UPDATE_VERIFICATION.md)
+- [Track 4 dogfood helper/domain-skill workflow](docs/TRACK4_DOGFOOD_HELPER_DOMAIN_SKILL.md)
 - [Domain skill format](docs/DOMAIN_SKILL_FORMAT.md)
 - [Plugin installation model](docs/PLUGIN_INSTALLATION_MODEL.md)
 
